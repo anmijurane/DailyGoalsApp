@@ -1,0 +1,18 @@
+@import './margin';
+@import './padding';
+
+* {
+  font-family: 'Mali', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin: 0px;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+}
+
+main {
+  width: 100%
+}
+
+
