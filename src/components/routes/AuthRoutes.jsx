@@ -5,12 +5,14 @@ import RegisterScreen from '../auth/RegisterScreen'
 
 export default function AuthRoutes() {
   return (
-    <>
-      <Switch>
-        <Route path='/auth/login'    component={ LoginScreen    } />
-        <Route path='/auth/register' component={ RegisterScreen } />
-        <Redirect to={ '/auth/login' } />
-      </Switch>
-    </>
+    <div  className='auth__main'>
+      <div className="auth__box_container">
+        <Switch>
+          <Route path='/auth/login'    component={ LoginScreen    } />
+          <Route path='/auth/register' component={ RegisterScreen } />
+          <Redirect to={ '/auth/login' } />
+        </Switch>
+      </div>
+    </div>
   )
 }
