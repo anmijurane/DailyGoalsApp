@@ -1,0 +1,50 @@
+.button {
+  height: 40px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid $primary;
+  background-color: transparent;
+  color: $primary;
+  font-weight: bold;
+  cursor: pointer;
+  padding: .5em;
+  &:hover {
+    border: 1px solid $secondary;
+  }
+}
+
+.button.is-primary {
+  background-color: $primary;
+  color: $white;
+  transition: background-color 1s ease;
+  transition: box-shadow 1s ease;
+  transition: border-color 01s ease;
+  
+  &:hover {
+    border-color: 1px solid darken($color: $primary, $amount: 20);
+    background-color: $primary_shadow;
+    box-shadow: 0 0 6px $primary_shadow;
+  }
+  &:disabled {
+    background-color: $primary_shadow;
+    cursor: not-allowed;
+  }
+}
+
+.button.is-secondary {
+  background-color: $secondary;
+  color: $white;
+  transition: background-color 1s ease;
+  transition: box-shadow 1s ease;
+  transition: border-color 1s ease;
+  
+  &:hover {
+    border-color: 1px solid darken($color: $secondary, $amount: 20);
+    background-color: $secondary_shadow;
+    box-shadow: 0 0 6px $secondary_shadow;
+  }
+  &:disabled {
+    background-color: $secondary_shadow;
+    cursor: not-allowed;
+  }
+}
