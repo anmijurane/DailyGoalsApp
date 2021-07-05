@@ -1,1 +1,53 @@
+.daily__main-content {
+  display: flex;
+}
 
+.daily__sidebar {
+  background-color: $primary;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 10px 0 10px;
+  width: 350px;
+}
+
+.daily__sidebar-header {
+  display: flex;
+  margin: 0.5em 0 0.5em 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5em 0 0.5em;
+  
+  button {
+    background-color: transparent;
+    border: 0 solid transparent;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: darken($color: $white, $amount: 20);
+    
+    &:hover {
+      color: $white;
+    }
+
+  }
+
+}
+
+.daily__sidebat-entry {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  color: $white;
+  background-color: transparent;
+  border: 0 solid transparent;
+  outline: none;
+  cursor: pointer;
+
+  transition: background-color .3s ease;
+  
+  &:hover {
+    background-color: darken($color: $primary, $amount: 5);
+  }
+
+}
