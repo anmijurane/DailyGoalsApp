@@ -10,8 +10,18 @@ p.is-secondary, label.is-secondary {
   color: $secondary;
 }
 
+.is-flex { display: flex; }
+
 .is-flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.is-flex-direc-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.is-clickable { 
+  cursor: pointer;
 }
