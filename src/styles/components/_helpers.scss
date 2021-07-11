@@ -25,3 +25,7 @@ p.is-secondary, label.is-secondary {
 .is-clickable { 
   cursor: pointer;
 }
+
+.is-blocked {
+  background-color: $shadow !important;
+}

@@ -1,0 +1,18 @@
+.alert {
+  box-shadow: 1px 1px 5px 2px $shadow-light;
+  padding: 1em .2em;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bolder;
+  margin: .2em;
+}
+
+.alert.is-primary {
+  box-shadow: 1px 1px 5px 2px $primary !important;
+}
+
+.alert.is-danger {
+  background-color: $danger !important;
+  box-shadow: 1px 1px 5px 2px $danger !important;
+  color: $white;
+}
