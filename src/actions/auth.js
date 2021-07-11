@@ -3,20 +3,55 @@ import { types } from "../types/types"
 
 export const startLoginAsync = (email, password) => {
   return (dispatch) => {
-    setTimeout(() => {
-      dispatch( login(159357654, 'Andres J') )
-    }, 3500);
+    dispatch( startLoading() );
+    firebase.auth().signInWithEmailAndPassword( email, password )
+      .then( ({user} ) => {
+        dispatch( login(user.uid, user.displayName) )
+        dispatch( finishLoading() );
+      })
+      .catch( (e) => {
+        console.log(e);
+        dispatch( finishLoading() );
+      })
+  }
+}
+
+export const starRegisterWithEmailAnsPassword = ( email, password, name ) => {
+  return ( dispatch ) => {
+    dispatch( startLoading() );
+    firebase.auth().createUserWithEmailAndPassword( email, password )
+      .then( async( {user} ) => {
+        await user.updateProfile({ displayName: name});
+        dispatch( login( user.uid, user.displayName ) );
+        dispatch( finishLoading() );
+      })
+      .catch( (e) => {
+        console.log(e);
+        dispatch( finishLoading() );
+      })
   }
 }
 
 export const startGoogleLogin = () => {
   return ( dispatch ) => {
+    dispatch( startLoading() );
     firebase.auth()
       .signInWithPopup( googleAuthProvider )
       .then( ( {user} ) => {
-        console.log( user );
         dispatch( login(user.uid, user.displayName) )
+        dispatch( finishLoading() );
       })
+      .catch( (e) => {
+        console.log(e);
+        dispatch( finishLoading() );
+      })
+  }
+}
+
+export const logoutAsync = () => {
+  return async( dispatch ) => {
+    await firebase.auth().signOut()
+    dispatch( logout() );
   }
 }
 
@@ -32,3 +67,10 @@ export const logout = () => ({
   type: types.logout
 })
 
+export const startLoading = () => ({
+  type: types.uiStartLoadng,
+});
+
+export const finishLoading = () => ({
+  type: types.uiFinishLoadng,
+})
