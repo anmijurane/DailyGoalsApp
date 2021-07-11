@@ -1,32 +1,53 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { startGoogleLogin, startLoginAsync } from '../../actions/auth';
 import { useForm } from '../../hooks/useForm'
+import validator from 'validator';
+import { removeError, setError } from '../../actions/ui';
 
 export default function LoginScreen() {
 
   const dispatch = useDispatch();
+  const { msgError, loading } = useSelector(state => state.ui);
 
   const { formValues, handleInputChange } = useForm({
-    email: 'anmijurane@gmail.com',
-    password: '58HB3d15fn'
+    email: 'testuser@gmail.com',
+    password: 'passwordTest00'
   });
   const { email, password } = formValues;
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch( startLoginAsync(159357852456, email) );
+    if ( validForm() ) {
+      dispatch( startLoginAsync(email, password) );
+    }
   }
 
   const handleLoginByGoogle = () => {
     dispatch( startGoogleLogin() );
   }
 
+  const validForm = () => {
+    if ( !validator.isEmail( email ) ) {
+      dispatch( setError( 'Email isn`t valid' ) );
+      return false;
+    } 
+    if ( validator.isEmpty( password ) ) {
+      dispatch( setError( 'The password is empty' ) );
+      return false;
+    }
+    dispatch( removeError() ) ;
+    return true;
+  }
+
   return (
     <>
       <h2 className="auth__title">Login</h2>
       <form onSubmit={ handleLogin }>
+        {msgError && (
+            <p className='alert is-danger'> { msgError } </p>
+        )}
         <div className='form__group'>
           <label htmlFor="login_email">
             Email
@@ -58,10 +79,13 @@ export default function LoginScreen() {
             onChange={ handleInputChange }
           />
         </div>
-
+        
         <div className='form__group'>
-          <button className='button is-primary'>
-            Login
+          <button
+            className={`button is-primary ${ loading ? 'is-blocked' : '' }`}
+            disabled={loading}
+          >
+            {loading ? 'Loading...' : 'Login'}
           </button>
         </div>
 
