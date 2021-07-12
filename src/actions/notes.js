@@ -37,3 +37,32 @@ export const setNotes = (notes) => ({
   type: types.notesLoad,
   payload: notes,
 })
+
+export const startSaveNote = ( note ) => {
+  return async ( dispatch, getState ) => {
+    const { uid } = getState().auth;
+
+    if( !note.url ) {
+      delete note.url;
+    }
+
+    const noteToDB = { ...note };
+    delete noteToDB.id;
+
+    await db.doc(`${ uid }/dailygoals/notes/${note.id}`)
+      .update( noteToDB );
+    dispatch( refreshNotes(note.id, note) )
+  }
+}
+
+export const refreshNotes = ( id, note ) => ({
+  type: types.notesUpdated,
+  payload: {
+    id,
+    note: {
+      id,
+      ...note
+    }
+  }
+
+})
