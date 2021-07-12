@@ -12,6 +12,7 @@ import { DailyGoalsScreen } from '../dailyGoals/DailyGoalsScreen';
 import AuthRoutes from './AuthRoutes';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { startLoadingNotes } from '../../actions/notes'; 
 
 
 export default function AppRouter() {
@@ -21,10 +22,11 @@ export default function AppRouter() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged( (user) => {
+    firebase.auth().onAuthStateChanged( async (user) => {
       if ( user?.uid ) {
-        dispatch( login(user.uid, user.displayName) );
-        setLogged(true);
+        dispatch( login( user.uid, user.displayName ) );
+        setLogged( true );
+        dispatch( startLoadingNotes( user.uid ) );
       } else {
         setLogged(false);
       }

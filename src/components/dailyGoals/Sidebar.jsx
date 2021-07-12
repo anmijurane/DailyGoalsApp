@@ -4,6 +4,7 @@ import { FaUserCircle, FaCalendarPlus } from 'react-icons/fa';
 import { DailyEntries } from './DailyEntries';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutAsync } from '../../actions/auth';
+import { startNewNote } from '../../actions/notes';
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -11,6 +12,10 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     dispatch( logoutAsync() );
+  }
+
+  const handleNewNote = () => {
+    dispatch( startNewNote() );
   }
 
   return (
@@ -31,7 +36,10 @@ export default function Sidebar() {
         </div>
       </nav>
 
-      <button className="daily__sidebat-entry box is-flex-center">
+      <button
+        className="daily__sidebat-entry box is-flex-center"
+        onClick={handleNewNote}
+      >
         <FaCalendarPlus className='fz-3' />
         <h3 className='mt-3'> New Entry </h3>
       </button>
